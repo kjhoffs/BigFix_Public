@@ -1,6 +1,6 @@
-﻿$key_dir = "C:\Users\kjhoffs\Documents\BF_Password_Updates\" # Location of the key.txt and output file
-$key_file = "key.txt"
-$passwd_file = "tdbfserver1.txt"
+﻿$key_dir = "C:\Users\kjhoffs\Documents\BF_Password_Updates\" # Location of the key file
+$key_file = "key_sample.txt"
+$passwd_file = "encoded_password.txt"
 
 $input_dir = "C:\Users\kjhoffs\Documents\API Relevance Query\input\"
 $output_dir = "C:\Users\kjhoffs\Documents\API Relevance Query\output\"
