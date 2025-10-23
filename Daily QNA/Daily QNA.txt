@@ -1,0 +1,19 @@
+This will list any action that has a name different than the source fixlet that it was created from (good for things like BigFix Inventory fixlets)
+
+Q: (ids of it, names of it, names of source fixlets of it, states of it ) of bes actions whose ( ( name of it != name of source fixlet of it ) AND ( state of it is "Open" ) and ( name of it as lowercase does not start with "Policy: " as lowercase ) )
+
+This will let you know any content that has a creation date in the last 7 days and there are relevant computers for it..
+
+Q: ( name of sites of it, names of it, applicable computer count of it, source release dates of it ) of bes fixlets whose ( ( ( current date ) - ( 7 * day ) < it ) of ( source release date of it ) AND applicable computer count of it > 0 )
+
+This will let you know any content that has a modification time in the last 7 days and there are relevant computers for it.
+
+Q: ( name of sites of it, names of it, applicable computer count of it, modification times of it ) of bes fixlets whose ( ( now - ( 7 * day ) < it ) of ( modification time of it ) AND applicable computer count of it > 0  )
+
+This just pulls the current version of the external sites.
+
+Q: unique values of ( it as string ) of ( ( display names of it, ids of it, versions of it ) of bes sites )
+
+This shows all fixlets with a creation date or modification time in the last 2 days and no computers show relevant for it.
+
+Q: unique values of ( it as string ) of ( name of site of it, ( if exists ( version of site of it ) then ( version of site of it ) else nothings ), names of it, source release dates of it, ( if exists ( modification times of it ) then ( modification times of it ) as string else "N/A" ) ) of bes fixlets whose ( ( ( ( current date ) - ( 2 * day ) < it ) of ( source release date of it ) OR ( now - ( 2 * day ) < it ) of ( modification time of it ) ) AND applicable computer count of it = 0  )
