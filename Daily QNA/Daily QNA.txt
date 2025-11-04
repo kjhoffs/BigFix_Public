@@ -28,3 +28,14 @@ Q: (tuple string items 0 of it, tuple string items 1 of it, tuple string items 2
 Q: (tuple string items 0 of it, tuple string items 1 of it, tuple string items 2 of it, tuple string items 3 of it ) of unique values of ( it as string ) of ( name of sites of it, names of it, applicable computer count of it, modification times of it ) of bes fixlets whose ( ( now - ( 7 * day ) < it ) of ( modification time of it ) AND applicable computer count of it > 0  )
 
 <?Relevance (html "<table border=1 cellpadding=5 cellspacing=0 >" & html "<tr><th>Site Name</th><th>Fixlet Name</th><th>Count</th><th>Date</th></tr>" & it & html "</table>") of concatenation of trs of  ( td of tuple string item 0 of it  & td of tuple string item 1 of it & td of tuple string item 2 of it & td of tuple string item 3 of it) of  ( unique values of ( it as string ) of ( name of sites of it, names of it, applicable computer count of it, modification times of it ) of bes fixlets whose ( ( now - ( 7 * day ) < it ) of ( modification time of it ) AND applicable computer count of it > 0  ) ) ?>
+
+if exists properties whose(it as string contains "hardware: hardware") then (serials of hardwares) else NOTHINGS 
+
+if exists properties whose ( it as string contains "wmis" ) then ( string values of selects "IdentifyingNumber from Win32_ComputerSystemProduct" of wmis ) else NOTHINGS 
+
+
+if exists properties whose ( it as string contains "active directories" ) then ( distinguished names of local computers of active directories ) else NOTHINGS
+
+if exists properties whose ( it as string contains "active directories" ) then ( sample times of local computers of active directories ) else NOTHINGS
+
+if exists propreties whose ( it as string contains "event log" ) then ( maximum of times generated of records whose (event id of it = 5257) of event log "Microsoft-Windows-GroupPolicy/Operational" ) else NOTHINGS
