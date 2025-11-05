@@ -34,8 +34,8 @@ if exists properties whose(it as string contains "hardware: hardware") then (ser
 if exists properties whose ( it as string contains "wmis" ) then ( string values of selects "IdentifyingNumber from Win32_ComputerSystemProduct" of wmis ) else NOTHINGS 
 
 
-if exists properties whose ( it as string contains "active directories" ) then ( distinguished names of local computers of active directories ) else NOTHINGS
+Q: if exists properties whose ( it as string contains "active directory" ) then ( distinguished names of local computers of active directories ) else NOTHINGS
 
-if exists properties whose ( it as string contains "active directories" ) then ( sample times of local computers of active directories ) else NOTHINGS
+Q: if exists properties whose ( it as string contains "active directory" ) then ( sample times of local computers of active directories ) else NOTHINGS
 
-if exists propreties whose ( it as string contains "event log" ) then ( maximum of times generated of records whose (event id of it = 5257) of event log "Microsoft-Windows-GroupPolicy/Operational" ) else NOTHINGS
+Q: if exists properties whose ( it as string contains "event log" ) then ( maximum of times generated of records whose (event id of it = 5257) of event log  "Microsoft-Windows-GroupPolicy/Operational" ) else NOTHINGS
