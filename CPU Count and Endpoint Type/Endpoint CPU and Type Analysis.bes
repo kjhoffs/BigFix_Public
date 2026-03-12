@@ -2,18 +2,18 @@
 <BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
 	<Analysis>
 		<Title>Endpoint CPU and Type Analysis</Title>
-		<Description><![CDATA[Using BigFix Inspectors from here - <A href="https://developer.bigfix.com/relevance/reference/cpupackage.html">https://developer.bigfix.com/relevance/reference/cpupackage.html</A><BR><BR>CPU Count = Number of CPU<BR>CPU Core Count = Number of CPU Cores<BR>Hyperthreading&nbsp;Capabe = If the CPU has Hyperthreading<BR>Hyperthreading Enabled = If the CPU has Hyperthreading Enabled <BR>Computer Type = Virtual or Physical ]]></Description>
+		<Description><![CDATA[Using BigFix Inspectors from here - <A href="https://developer.bigfix.com/relevance/reference/cpupackage.html">https://developer.bigfix.com/relevance/reference/cpupackage.html</A><BR><BR>CPU Count = Number of CPU<BR>CPU Core Count = Number of CPU Cores<BR>Hyperthreading&nbsp;Capabe = If the CPU has Hyperthreading (Windows and AIX only)<BR>Hyperthreading Enabled = If the CPU has Hyperthreading Enabled <BR>Computer Type = Virtual or Physical ]]></Description>
 		<Relevance>true</Relevance>
 		<Source>Internal</Source>
 		<SourceReleaseDate>2025-02-18</SourceReleaseDate>
 		<MIMEField>
 			<Name>x-fixlet-modification-time</Name>
-			<Value>Thu, 12 Mar 2026 19:06:48 +0000</Value>
+			<Value>Thu, 12 Mar 2026 20:20:07 +0000</Value>
 		</MIMEField>
 		<Domain>BESC</Domain>
 		<Property Name="CPU Count" ID="1" EvaluationPeriod="P1D">if (exists properties whose (it as string contains "cpupackage")) then (count of cpupackage) else ERROR "cpupackage property not available"</Property>
 		<Property Name="CPU Core Count" ID="2" EvaluationPeriod="P1D">if (exists properties whose (it as string contains "cpupackage")) then ((core of it*count of it) of cpupackage) else ERROR "cpupackage property not available"</Property>
-		<Property Name="Hyperthreading Capable" ID="3" EvaluationPeriod="P1D">if ( exists properties whose ( it as string contains "cpupackage" ) ) then ( smt capable of cpupackage ) else ERROR "cpupackage property not available"</Property>
+		<Property Name="Hyperthreading Capable" ID="3" EvaluationPeriod="P1D">if ( exists properties whose ( it as string contains "cpupackage" )  ) then ( if ( name of operating system contains "Win" OR name of operating system contains "AIX" ) then ( smt capable of cpupackage ) else ERROR "BigFix Inspector not supported on OS" ) else ERROR "cpupackage property not available"</Property>
 		<Property Name="Hyperthreading Enabled" ID="4" EvaluationPeriod="P1D">if ( exists properties whose ( it as string contains "cpupackage" ) ) then ( smt enabled of cpupackage ) else ERROR "cpupackage property not available"</Property>
 		<Property Name="Computer Type" ID="5" EvaluationPeriod="P1D"><![CDATA[if (exists true whose ( if true then (exists virtual of hardware) else false ) ) then if ( virtual of hardware ) then "Virtual" else "Physical" else if ((version of client < "8.0") or (if (windows of operating system) then (platform id of operating system = 3) else false) or (if (version of client >= "8.2.1078.0") then in proxy agent context else false) or(if ((windows of it OR name of it starts with "Linux") of operating system) then false else true)) then "N/A" else (if exists true whose (if true then( (((item 0 of it contains "VMware") or ((item 0 of it contains "Microsoft") and not (item 1 of it as lowercase contains "surface")) or (item 0 of it contains "Xen") or (item 0 of it contains "Amazon EC2")) of ((value "manufacturer" of it as string, value "product_name" of it as string) of structure "system_information" of smbios))) else false) then "Virtual" else "Physical")]]></Property>
 	</Analysis>
