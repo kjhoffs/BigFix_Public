@@ -1,0 +1,30 @@
+(
+    item 1 of it, /* The Computer Type */
+    
+    /* Sum of CPU Count for this Type */
+    sum of ( tuple string items 2 of item 0 of it as integer ) 
+        of ( elements of item 0 of it, item 1 of it ) 
+        whose ( tuple string item 1 of item 0 of it = item 1 of it ),
+        
+    /* Sum of CPU Core Count for this Type */
+    sum of ( tuple string items 3 of item 0 of it as integer ) 
+        of ( elements of item 0 of it, item 1 of it ) 
+        whose ( tuple string item 1 of item 0 of it = item 1 of it )
+)
+of 
+(
+    it, /* item 0: The entire set of computer data */
+    unique values of ( tuple string items 1 of elements of it ) /* item 1: The unique Computer Types */
+)
+of set of 
+(
+    ( it as string )
+    of
+    (
+        names of it, 
+        values of results from ( bes property whose ( name of it is "Computer Type" and reserved flag of it ) ) of it,
+        values of results from ( bes property "CPU Count" ) of it,
+        values of results from ( bes property "CPU Core Count" ) of it
+    )
+    of bes computers
+)
