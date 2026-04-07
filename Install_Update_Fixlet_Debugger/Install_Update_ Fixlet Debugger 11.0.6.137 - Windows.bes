@@ -53,7 +53,7 @@ createfile until END_OF_FILE
 [install]
 ProductName=Fixlet Debugger
 CompanyName=BigFix Enterprise
-Description=A debugger to assist in creating content for IBM Endpoint Manager. Find more information here:  https://www.ibm.com/developerworks/community/wikis/home?lang=en#!/wiki/Tivoli%20Endpoint%20Manager/page/Fixlet%20Debugger%20(QnA)%20Tool
+Description=A debugger to assist in creating content for HCL BigFix Endpoint Manager. Find more information here: https://developer.bigfix.com/tools/fixlet_debugger.html
 ZipFile={ pathname of files whose(name of it as lowercase ends with ".zip") of folder "__Download" of client folder of current site }
 AddUninstall=1
 AddUninstallShortcut=0
