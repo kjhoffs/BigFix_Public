@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Install/Update: Fixlet Debugger 11.0.6.137 - Windows</Title>
+		<Description><![CDATA[&lt;enter a description of the problem and the corrective action here&gt; ]]></Description>
+		<Relevance>windows of operating system</Relevance>
+		<Relevance><![CDATA[version of operating system >= "5.1"]]></Relevance>
+		<Relevance>not exists keys whose(value "DisplayName" of it as string contains "Fixlet Debugger" AND value "DisplayVersion" of it as string as version = "11.0.6.137") of keys "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of registry</Relevance>
+		<Category></Category>
+		<DownloadSize>8303994</DownloadSize>
+		<Source>Internal</Source>
+		<SourceID>jgstew</SourceID>
+		<SourceReleaseDate>2017-06-08</SourceReleaseDate>
+		<SourceSeverity></SourceSeverity>
+		<CVENames></CVENames>
+		<SANSID></SANSID>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Tue, 07 Apr 2026 16:00:26 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
+
+// https://software.bigfix.com/download/bes/110/util/QNA11.0.6.137.zip
+//SHA1 b03afc8a0e2bf0dc77b4b1f0ecf253cb0170bd4f
+//SHA256 9a5af296b12d799e97b4baace1368cdc464fcf91744ee7f73b20961a7c6f8da7
+//File size 16.6 MB ( 17443147 bytes )
+
+// Download zipinst
+//   http://www.nirsoft.net/utils/zipinst.html
+prefetch zipinst.exe sha1:6a1290fd85019dc80e34abeb4be5bcbbc742d012 size:39424 http://www.nirsoft.net/utils/zipinst.exe sha256:d5249a08f76092c4b05a3c3295426fe2f481eaa3c11d2ca1dc50c6b323bb6002
+
+// Download Fixlet Debugger
+prefetch FixletDebugger.zip sha1:b03afc8a0e2bf0dc77b4b1f0ecf253cb0170bd4f size:17443147 https://software.bigfix.com/download/bes/110/util/QNA11.0.6.137.zip sha256:9a5af296b12d799e97b4baace1368cdc464fcf91744ee7f73b20961a7c6f8da7
+
+// Add zipinst.exe to Utility Cache (to use in multiple tasks)
+utility __Download\zipinst.exe
+
+// This should be an unnessisary sanity check, but it is a good idea due to the relevance substitution below.
+continue if{ 1 = number of files whose(name of it as lowercase ends with ".zip") of folder "__Download" of client folder of current site }
+
+// Create zipinst config file
+//   http://www.nirsoft.net/utils/zipinst.html
+delete __createfile
+delete __Download\zipinst.zic
+createfile until END_OF_FILE
+[install]
+ProductName=Fixlet Debugger
+CompanyName=BigFix Enterprise
+Description=A debugger to assist in creating content for IBM Endpoint Manager. Find more information here:  https://www.ibm.com/developerworks/community/wikis/home?lang=en#!/wiki/Tivoli%20Endpoint%20Manager/page/Fixlet%20Debugger%20(QnA)%20Tool
+ZipFile={ pathname of files whose(name of it as lowercase ends with ".zip") of folder "__Download" of client folder of current site }
+AddUninstall=1
+AddUninstallShortcut=0
+DesktopShortcut=0
+InstallTo=1
+StartMenuShortcut=1
+NoUserInteraction=1
+InstallFolder=%zi.ProgramFiles%\%zi.CompanyName%\FixletDebugger-%zi.ProductVersion%
+StartMenuFolder=%zi.ProductName%\%zi.ProductVersion%
+UninstallRegKey=FixletDebugger-11.0.6.137
+NoExtraUninstallInfo=0
+NoSuccessMessage=1
+UninstallInDestFolder=1
+END_OF_FILE
+
+move __createfile "{pathname of client folder of current site}\__Download\zipinst.zic"
+
+// Install
+waithidden __Download\zipinst.exe /cfg "{pathname of client folder of current site}\__Download\zipinst.zic"
+
+// Delete extra Start Menu shortcuts
+delete "{pathname of files "Eval.lnk" of folders of folders "Fixlet Debugger" of folders "Microsoft\Windows\Start Menu\Programs" of folders (value of variable "ALLUSERSPROFILE" of environment)}"
+delete "{pathname of files "EvalSession.lnk" of folders of folders "Fixlet Debugger" of folders "Microsoft\Windows\Start Menu\Programs" of folders (value of variable "ALLUSERSPROFILE" of environment)}"
+</ActionScript>
+		</DefaultAction>
+	</Fixlet>
+</BES>

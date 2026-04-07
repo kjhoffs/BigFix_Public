@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Set Windows Reboot Notification Off for File Rename</Title>
+		<Description><![CDATA[&lt;enter a description of the problem and the corrective action here&gt; ]]></Description>
+		<Relevance><![CDATA[((not exists setting "_BESClient_ActionManager_PendingRestartExclusions" of client) OR ((not exists effective date of it) OR ((effective date of it <= universal time "Tue, 31 Dec 2024 20:55:01 +0000") AND ((not exists value of it) OR (value of it does not equal ((":;") as string))))) of setting "_BESClient_ActionManager_PendingRestartExclusions" of client)]]></Relevance>
+		<Relevance>operating system as string as lowercase starts with "win"</Relevance>
+		<Category></Category>
+		<Source>Internal</Source>
+		<SourceID></SourceID>
+		<SourceReleaseDate>2025-01-01</SourceReleaseDate>
+		<SourceSeverity></SourceSeverity>
+		<CVENames></CVENames>
+		<SANSID></SANSID>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Wed, 01 Jan 2025 18:49:53 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">// Enter your action script here
+setting "_BESClient_ActionManager_PendingRestartExclusions"="%3a%3b" on "{now}" for client</ActionScript>
+		</DefaultAction>
+	</Fixlet>
+</BES>
