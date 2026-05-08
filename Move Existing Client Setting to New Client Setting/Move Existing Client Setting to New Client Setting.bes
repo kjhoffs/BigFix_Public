@@ -4,8 +4,8 @@
 		<Title>Move Existing Client Setting to New Client Setting</Title>
 		<Description><![CDATA[<P>This will be relevan if "OldClientSetting" exists and has a value<BR><BR>It will </P>
 <UL>
-<LI>Copy the value from "OldClientSetting" to "NewClientSetting"</LI>
-<LI>Validate the values match between the two settings</LI>
+<LI>Copy the value from "OldClientSetting" to "NewClientSetting" 
+<LI>Validate the values match between the two settings 
 <LI>Delete the "OldClientSetting"</LI></UL>]]></Description>
 		<Relevance>exists values of settings "OldClientSetting" of client</Relevance>
 		<Category></Category>
@@ -17,7 +17,7 @@
 		<SANSID></SANSID>
 		<MIMEField>
 			<Name>x-fixlet-modification-time</Name>
-			<Value>Fri, 08 May 2026 20:40:28 +0000</Value>
+			<Value>Fri, 08 May 2026 21:17:31 +0000</Value>
 		</MIMEField>
 		<Domain>BESC</Domain>
 		<DefaultAction ID="Action1">
@@ -27,7 +27,7 @@
 				<PostLink> to deploy this action.</PostLink>
 			</Description>
 			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">// 1. Capture the current value of "OldClientSetting" into a parameter
-parameter "OldClientSettingValue" = "{value of setting "OldClientSetting" of client | ""}"
+parameter "OldClientSettingValue" = "{value of settings "OldClientSetting" of client | ""}"
 
 // 2. Create/Update "NewClientSetting" with that captured value
 setting "NewClientSetting"="{parameter "OldClientSettingValue"}" on "{now}" for client
